@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_platform_interface/src/firebase_auth_exception.dart';
 import 'package:lifespark_test/feature/auth/data/auth_repository.dart';
 import 'package:lifespark_test/feature/auth/data/auth_service.dart';
 

@@ -23,9 +23,11 @@ class Phonenumberfield extends HookWidget {
     ValueNotifier<String> code = useState("+91");
     return AppTextFormField(
       enabled: fieldActive.value,
+      maxLength: 10,
+keyboardType: TextInputType.phone,
       controller: controller,
       suffixIcon: SendOtpButton(
-          getPhone: () => controller.text,
+          getPhone: () => code.value + controller.text,
           timerOn: (value) {
             fieldActive.value = !value;
           }),

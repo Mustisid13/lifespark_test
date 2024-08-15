@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:toastification/toastification.dart';
 
 import '../styles/app_colors.dart';
 
+/// shows snackbar
 Future<void> showToast({required String? title, bool isError = false}) async {
   toastification.dismissAll(delayForAnimation: false);
   toastification.show(
@@ -16,7 +16,7 @@ Future<void> showToast({required String? title, bool isError = false}) async {
       style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: isError ? AppColors.white : AppColors.charcoalBlack),
+          color: isError ? AppColors.white : AppColors.white),
     ),
     alignment: Alignment.topCenter,
     direction: TextDirection.ltr,
@@ -39,6 +39,7 @@ Future<void> showToast({required String? title, bool isError = false}) async {
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
     margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     borderRadius: BorderRadius.circular(12),
+    icon: const SizedBox(),
     boxShadow: const [
       BoxShadow(
         color: Color(0x07000000),

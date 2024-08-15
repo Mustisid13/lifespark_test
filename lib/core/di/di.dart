@@ -5,6 +5,7 @@ import 'package:lifespark_test/feature/auth/data/auth_service.dart';
 import 'package:lifespark_test/feature/auth/domain/auth_repository_impl.dart';
 import 'package:lifespark_test/feature/auth/domain/auth_usecase.dart';
 import 'package:lifespark_test/feature/auth/presentation/controller/login_controller.dart';
+import 'package:lifespark_test/feature/home/presentation/controller/home_controller.dart';
 import 'package:riverpod/riverpod.dart';
 
 final authService = Provider<AuthService>(
@@ -16,3 +17,7 @@ final authUsecase = Provider<AuthUsecase>(
 final loginController =
     StateNotifierProvider<LoginController, AsyncValue<bool>>((ref) =>
         LoginController(ref.read(authUsecase), SharedPreferenceService()));
+
+// HOME CONTROLLER
+final homeController =
+    StateNotifierProvider((ref) => HomeController(SharedPreferenceService()));

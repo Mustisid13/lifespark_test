@@ -59,10 +59,9 @@ class _SendOtpButtonState extends ConsumerState<SendOtpButton> {
       padding: const EdgeInsets.only(top: 19, bottom: 19, right: 15),
       child: Visibility(
         visible: !ref.watch(loginController).isLoading,
-        replacement: const SizedBox(
-            height: 14,
-            width: 14,
-            child: Center(child: CircularProgressIndicator())),
+        replacement: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: const CircularProgressIndicator()),
         child: AppTextButtonWidget(
           textAlign: TextAlign.right,
           onPressed: () {

@@ -47,9 +47,12 @@ class LoginPage extends HookWidget {
                     fontSize: 16,
                   ),
                   onCompleted: (value) async {
-                    await ref
+                    final result = await ref
                         .read(loginController.notifier)
                         .verifyOtp(otp.text, context);
+                        if(!result){
+                          otp.clear();
+                        }
                   },
                   controller: otp,
                   defaultPinTheme: PinTheme(

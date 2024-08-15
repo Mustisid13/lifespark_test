@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lifespark_test/core/models/logged_in_user_model.dart';
@@ -33,6 +34,12 @@ class SharedPreferenceService {
   }
 
   Future<void> storeUser(User user) async {
+    log(LoggedInUserModel(
+                email: user.email,
+                name: user.displayName,
+                phone: user.phoneNumber,
+                id: user.uid)
+            .toJson().toString(),name: "data");
     await _preferences?.setString(
         "user",
         jsonEncode(LoggedInUserModel(
@@ -45,6 +52,7 @@ class SharedPreferenceService {
 
 LoggedInUserModel? getUser()  {
     final data = _preferences?.getString("user");
+    log(data??"Null");
     if (data != null) {
       return LoggedInUserModel.fromJson(jsonDecode(data));
     } else {
