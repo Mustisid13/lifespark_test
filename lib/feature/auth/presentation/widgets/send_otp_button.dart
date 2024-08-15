@@ -8,9 +8,15 @@ import '../../../../core/styles/app_colors.dart';
 import '../../../../core/widget/app_text_button_widget.dart';
 
 class SendOtpButton extends ConsumerStatefulWidget {
-  const SendOtpButton({required this.getPhone, required this.timerOn, super.key});
+  const SendOtpButton({
+    required this.getPhone,
+    required this.timerOn,
+    super.key,
+    required this.enable,
+  });
   final String Function() getPhone;
   final void Function(bool) timerOn;
+  final bool enable;
   @override
   ConsumerState<SendOtpButton> createState() => _SendOtpButtonState();
 }
@@ -45,8 +51,9 @@ class _SendOtpButtonState extends ConsumerState<SendOtpButton> {
 
   Future<void> sendOtp() async {
     final phone = widget.getPhone();
-    final sent =
-        await ref.read(loginController.notifier).sendOtp(phone,);
+    final sent = await ref.read(loginController.notifier).sendOtp(
+          phone,
+        );
     if (sent) {
       showTimer = true;
       startTimer();
@@ -56,10 +63,10 @@ class _SendOtpButtonState extends ConsumerState<SendOtpButton> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible:!ref.watch(loginController).isLoading,
+      visible: !ref.watch(loginController).isLoading,
       replacement: const Padding(
-        padding: EdgeInsets.only(top: 12, bottom: 12, right: 15),
-        child: CircularProgressIndicator()),
+          padding: EdgeInsets.only(top: 12, bottom: 12, right: 15),
+          child: CircularProgressIndicator()),
       child: Padding(
         padding: const EdgeInsets.only(top: 14, bottom: 14, right: 10),
         child: AppTextButtonWidget(
@@ -71,6 +78,7 @@ class _SendOtpButtonState extends ConsumerState<SendOtpButton> {
           },
           fontSize: 12,
           fontWeight: FontWeight.w600,
+          isEnable: widget.enable,
           btnName: showTimer
               ? "$countDown"
               : showResend
