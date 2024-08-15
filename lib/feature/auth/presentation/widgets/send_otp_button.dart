@@ -55,13 +55,13 @@ class _SendOtpButtonState extends ConsumerState<SendOtpButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 19, bottom: 19, right: 15),
-      child: Visibility(
-        visible: !ref.watch(loginController).isLoading,
-        replacement: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: const CircularProgressIndicator()),
+    return Visibility(
+      visible:!ref.watch(loginController).isLoading,
+      replacement: const Padding(
+        padding: EdgeInsets.only(top: 12, bottom: 12, right: 15),
+        child: CircularProgressIndicator()),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 14, bottom: 14, right: 10),
         child: AppTextButtonWidget(
           textAlign: TextAlign.right,
           onPressed: () {

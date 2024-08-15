@@ -68,4 +68,9 @@ class LoginController extends StateNotifier<AsyncValue<bool>> {
     });
     return await verified.future;
   }
+
+  void logOut(BuildContext context) {
+    _sharedPreferenceService.clearAll();
+    context.go(RouteNames.login);
+  }
 }

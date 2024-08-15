@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'AppTextWidget.dart';
 
 import '../styles/app_colors.dart';
+import 'AppTextWidget.dart';
 
 class AppTextButtonWidget extends StatelessWidget {
   const AppTextButtonWidget({
@@ -29,13 +29,16 @@ class AppTextButtonWidget extends StatelessWidget {
     return GestureDetector(
         onTap: isEnable ? onPressed : null,
         child: 
-                AppTextWidget(
-                  textAlign: textAlign??TextAlign.left,
-                  txtTitle: btnName,
-                  fontSize: fontSize,
-                  fontWeight: fontWeight,
-                  txtColor: isEnable? txtColor : txtColor.withOpacity(0.5),
-                  decoration: decoration,
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: AppTextWidget(
+                    textAlign: textAlign??TextAlign.left,
+                    txtTitle: btnName,
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
+                    txtColor: isEnable? txtColor : txtColor.withOpacity(0.5),
+                    decoration: decoration,
+                  ),
                 ));
   }
 }
