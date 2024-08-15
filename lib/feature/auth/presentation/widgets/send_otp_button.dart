@@ -1,0 +1,85 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/di/di.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../../../core/widget/app_text_button_widget.dart';
+
+class SendOtpButton extends ConsumerStatefulWidget {
+  const SendOtpButton({required this.getPhone, required this.timerOn, super.key});
+  final String Function() getPhone;
+  final void Function(bool) timerOn;
+  @override
+  ConsumerState<SendOtpButton> createState() => _SendOtpButtonState();
+}
+
+class _SendOtpButtonState extends ConsumerState<SendOtpButton> {
+  bool showResend = false;
+  bool showTimer = false;
+  Timer? timer;
+  int countDown = 60;
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    widget.timerOn(true);
+    timer?.cancel();
+    countDown = 60;
+
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      countDown--;
+      if (countDown == 0) {
+        timer?.cancel();
+        showResend = true;
+        showTimer = false;
+        widget.timerOn(false);
+      }
+      setState(() {});
+    });
+  }
+
+  Future<void> sendOtp() async {
+    final phone = widget.getPhone();
+    final sent =
+        await ref.read(loginController.notifier).sendOtp(phone,);
+    if (sent) {
+      showTimer = true;
+      startTimer();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 19, bottom: 19, right: 15),
+      child: Visibility(
+        visible: !ref.watch(loginController).isLoading,
+        replacement: const SizedBox(
+            height: 14,
+            width: 14,
+            child: Center(child: CircularProgressIndicator())),
+        child: AppTextButtonWidget(
+          textAlign: TextAlign.right,
+          onPressed: () {
+            if (!showTimer) {
+              sendOtp();
+            }
+          },
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          btnName: showTimer
+              ? "$countDown"
+              : showResend
+                  ? "RESEND OTP"
+                  : "SEND OTP",
+          txtColor: AppColors.primaryColor,
+        ),
+      ),
+    );
+  }
+}
